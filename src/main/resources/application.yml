@@ -1,0 +1,11 @@
+server:
+   port: 8888
+   
+spring:
+   application:
+      name: vendedor-api
+   data:
+      mongodb:          
+         host: vendedor-mongo
+         port: 27017
+         database: vendedor
