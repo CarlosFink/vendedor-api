@@ -17,7 +17,7 @@ import br.com.fink.vendedorapi.services.exceptions.DocumentNotFoundException;
 
 @Service
 public class VendedorService {
-
+	
 	@Autowired
 	private VendedorRepository vendedorRepository;
 
@@ -26,6 +26,9 @@ public class VendedorService {
 
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private SequenceService sequenceGeneratorService;
 
 	public List<VendedorResponse> findAll() {
 		List<Vendedor> vendedores = vendedorRepository.findAll();
@@ -34,8 +37,8 @@ public class VendedorService {
 		return response;
 	}
 
-	public VendedorResponse findById(String id) {
-		Optional<Vendedor> vendedor = vendedorRepository.findById(id);
+	public VendedorResponse findById(Integer id) {
+		Optional<Vendedor> vendedor = vendedorRepository.findByDocumentId(id);
 		if (!vendedor.isPresent()) {
 			throw new DocumentNotFoundException("Documento com id:" + id + " não encontrado");
 		}
@@ -56,9 +59,10 @@ public class VendedorService {
 					"Documento com matrícula:" + vendedorRequest.getMatricula() + " já existente");
 		}
 		Vendedor vendedor = new Vendedor();
+		vendedor.setDocumentId(sequenceGeneratorService.generateSequence());
 		vendedor.setMatricula(vendedorRequest.getMatricula());
 		vendedor.setNome(vendedorRequest.getNome());
-		vendedor.setDataNasc(vendedorRequest.getDataNasc());
+		vendedor.setDataNascimento(vendedorRequest.getDataNascimento());
 		vendedor.setFilial(filialClient.getFilial(vendedorRequest.getFilialId()));
 		vendedor = vendedorRepository.save(vendedor);
 		return convertToResponse(vendedor);
@@ -66,9 +70,8 @@ public class VendedorService {
 
 	public VendedorResponse update(VendedorRequest vendedorRequest) {
 		Vendedor vendedor = convertToVendedor(findByMatricula(vendedorRequest.getMatricula()));
-		vendedor.setMatricula(vendedorRequest.getMatricula());
 		vendedor.setNome(vendedorRequest.getNome());
-		vendedor.setDataNasc(vendedorRequest.getDataNasc());
+		vendedor.setDataNascimento(vendedorRequest.getDataNascimento());
 		vendedor.setFilial(filialClient.getFilial(vendedorRequest.getFilialId()));
 		vendedor = vendedorRepository.save(vendedor);
 		return convertToResponse(vendedor);

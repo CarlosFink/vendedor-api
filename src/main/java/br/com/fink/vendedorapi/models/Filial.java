@@ -2,17 +2,23 @@ package br.com.fink.vendedorapi.models;
 
 import java.util.Date;
 
+import org.springframework.data.mongodb.core.mapping.Field;
+
 public class Filial {
 	
+	@Field("id")
 	private Integer id;    
     private String nome;    
     private String cnpj;
     private String cidade;    
     private String uf;    
     private ETipo tipo;    
-    private Boolean ativo;    
+    private Boolean ativo;
+    @Field("data_cadastro")
     private Date dataCadastro;
-    private Date ultimaAtualizacao;    
+    @Field("ultima_atualizacao")
+    private Date ultimaAtualizacao;
+    @Field("cnpj_editado")
     private String cnpjEditado;
     
 	public Integer getId() {

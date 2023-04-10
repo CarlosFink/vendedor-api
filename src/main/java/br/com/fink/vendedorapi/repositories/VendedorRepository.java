@@ -9,4 +9,6 @@ import br.com.fink.vendedorapi.models.Vendedor;
 public interface VendedorRepository extends MongoRepository<Vendedor, String> {
 	
 	Optional<Vendedor> findByMatricula(String matricula);
+
+	Optional<Vendedor> findByDocumentId(Integer id);
 }

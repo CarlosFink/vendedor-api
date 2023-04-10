@@ -13,7 +13,7 @@ public class VendedorRequest {
 	@NotEmpty
 	private String nome;
 	
-	private Date dataNasc;
+	private Date dataNascimento;
 	
 	@NotNull
 	private Integer filialId;
@@ -34,12 +34,12 @@ public class VendedorRequest {
 		this.nome = nome;
 	}
 
-	public Date getDataNasc() {
-		return dataNasc;
+	public Date getDataNascimento() {
+		return dataNascimento;
 	}
 
-	public void setDataNasc(Date dataNasc) {
-		this.dataNasc = dataNasc;
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public Integer getFilialId() {

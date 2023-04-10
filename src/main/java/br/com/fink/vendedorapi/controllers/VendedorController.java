@@ -33,7 +33,7 @@ public class VendedorController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<VendedorResponse> findById(@PathVariable String id) {
+	public ResponseEntity<VendedorResponse> findById(@PathVariable Integer id) {
 		VendedorResponse vendedor = vendedorService.findById(id);
 		return ResponseEntity.ok().body(vendedor);
 	}
